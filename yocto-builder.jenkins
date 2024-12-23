@@ -89,5 +89,13 @@ pipeline {
                 }
             }
         }
+
+        stage('sdk') {
+            steps {
+                dir("work") {
+                    sh ''' ./build.sh --verbose sdk ${KAS_YAML}'''
+                }
+            }
+        }
     }
 }
