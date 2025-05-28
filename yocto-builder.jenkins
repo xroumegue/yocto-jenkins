@@ -25,7 +25,7 @@ pipeline {
 
     environment {
         KAS_YAML = "${env.WORKSPACE}/work/configs/${params.YAML_FILE}.yaml"
-        BUILDER_ARGS = "--disable_connectivity_check --verbose"
+        BUILDER_ARGS = "--disable_connectivity_check --verbose --packagesdir /var/www/html/yocto"
         DOWNLOADDIR_DEFAULT = "${env.YOCTO_DL_DIR}"
         SSTATEDIR_DEFAULT = "${env.YOCTO_SSTATE_DIR}"
     }
@@ -95,6 +95,14 @@ pipeline {
             steps {
                 dir("work") {
                     sh ''' ./build.sh ${BUILDER_ARGS} sdk ${KAS_YAML}'''
+                }
+            }
+        }
+
+        stage('packages') {
+            steps {
+                dir("work") {
+                    sh ''' ./build.sh ${BUILDER_ARGS} deploy-packages ${KAS_YAML}'''
                 }
             }
         }
