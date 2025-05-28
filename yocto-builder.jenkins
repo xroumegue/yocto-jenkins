@@ -4,7 +4,7 @@ pipeline {
     parameters {
     choice(
             name: 'YAML_FILE',
-            choices: ['xilinx-v2024.02', 'genericarm64'],
+            choices: ['genericarm64', 'xilinx-v2024.02'],
             description: 'Select the yocto build'
         )
     }
